@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>Transparent Calculator</title>
+</head>
+<body>
+    <div id="app">
+        <div class="calculator">
+            <div class="calc">
+                {{ calc }}
+            </div>
+            <div class="value">
+                {{ value }}
+            </div>
+            <div class="buttons">
+                <div v-for="x in 9" v-on:click="setModifier(x)" class="btn" >
+                    {{ x }}
+                </div>
+                <div class="btn" v-on:click="setModifier(0)">
+                    0
+                </div>
+                <div v-on:click="add()" class="btn">
+                    +
+                </div>
+                <div v-on:click="sub()" class="btn">
+                    -
+                </div>
+                <div v-on:click="div()" class="btn">
+                    /
+                </div>
+                <div v-on:click="mul()" class="btn">
+                    x
+                </div>
+                <div v-on:click="reset()" class="btn">
+                    C
+                </div>
+                <div v-on:click="total()" class="btn">
+                    =
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                calc: '',
+                value: 0
+            },
+            methods: {
+                add() {
+                    this.calc += '+'
+                },
+                sub() {
+                    this.calc += '-'
+                },
+                div() {
+                    this.calc += '/'
+                },
+                mul() {
+                    this.calc += '*'
+                },
+                setModifier(x) {
+                    this.calc += x
+                },
+                reset() {
+                    this.value = 0
+                    this.calc = ''
+                },
+                total() {
+                    this.value = eval(this.calc)
+                    this.calc = this.value
+                },
+                key(e) {
+                    console.log(e.keyCode);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
